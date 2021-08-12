@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FollowApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark p-3">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        LOGO
+      <% end %>
+    
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav">
+          <% if user_signed_in? %>
+            <li class="nav-item active">
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item active">
+              <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to 'Sign up', new_user_registration_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
+    <% if flash[:notice] %>
+      <div class="alert alert-primary text-center" role="alert"><strong><%= notice %></strong></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger text-center" role="alert"><strong><%= alert %></strong></div>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>
